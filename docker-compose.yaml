@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    expose:
+      - "8080"
+    restart: unless-stopped
+    environment:
+      APP_CITY_LATITUDE: ${APP_CITY_LATITUDE:-}
+      APP_CITY_LONGITUDE: ${APP_CITY_LONGITUDE:-}
+      APP_CITY_TIMEZONE: ${APP_CITY_TIMEZONE:-}
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

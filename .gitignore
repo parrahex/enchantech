@@ -26,3 +26,6 @@ vendor/
 .idea/
 .vscode/
 .DS_Store
+
+# Node is only used to compile the front end; it never enters the image.
+node_modules/
