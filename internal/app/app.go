@@ -13,7 +13,8 @@ import (
 
 // App owns the HTTP lifecycle of the application.
 type App struct {
-	web *http.Server
+	web      *http.Server
+	forecast *weather
 }
 
 // New creates the Gin router and configures the HTTP runtime.
@@ -30,7 +31,10 @@ func New(settings config.Config) *App {
 		router.Static("/assets", directory)
 	}
 
-	registerRoutes(router, templates != nil)
+	forecast := newWeather(settings.City)
+	forecast.start()
+
+	registerRoutes(router, forecast, templates != nil)
 
 	return &App{
 		web: &http.Server{
@@ -38,6 +42,7 @@ func New(settings config.Config) *App {
 			Handler:           router,
 			ReadHeaderTimeout: 10 * time.Second,
 		},
+		forecast: forecast,
 	}
 }
 
@@ -54,5 +59,9 @@ func (application *App) Run() error {
 // Shutdown stops accepting new requests and waits for active requests until
 // the supplied context expires.
 func (application *App) Shutdown(ctx context.Context) error {
-	return application.web.Shutdown(ctx)
+	err := application.web.Shutdown(ctx)
+
+	application.forecast.stop()
+
+	return err
 }
