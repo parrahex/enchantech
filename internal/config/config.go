@@ -13,6 +13,11 @@ type Config struct {
 
 	// ShutdownTimeout limits graceful shutdown.
 	ShutdownTimeout time.Duration
+
+	// ContentDir holds the site's templates and assets. It is kept outside the
+	// repository, so the application starts and serves a placeholder when the
+	// directory is absent.
+	ContentDir string
 }
 
 // Load reads environment variables, applies defaults, and validates required
@@ -21,6 +26,11 @@ func Load() (Config, error) {
 	settings := Config{
 		Address:         ":8080",
 		ShutdownTimeout: 5 * time.Second,
+		ContentDir:      "content",
+	}
+
+	if directory := strings.TrimSpace(os.Getenv("APP_CONTENT_DIR")); directory != "" {
+		settings.ContentDir = directory
 	}
 
 	if address := strings.TrimSpace(os.Getenv("APP_ADDRESS")); address != "" {

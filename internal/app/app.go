@@ -21,7 +21,16 @@ func New(settings config.Config) *App {
 	router := gin.New()
 	router.Use(gin.Logger(), gin.Recovery())
 
-	registerRoutes(router)
+	templates := loadTemplates(settings.ContentDir)
+	if templates != nil {
+		router.SetHTMLTemplate(templates)
+	}
+
+	if directory, ok := assetDirectory(settings.ContentDir); ok {
+		router.Static("/assets", directory)
+	}
+
+	registerRoutes(router, templates != nil)
 
 	return &App{
 		web: &http.Server{

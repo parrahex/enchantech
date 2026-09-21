@@ -4,6 +4,10 @@
 *.pem
 *.key
 
+# The entire front end. Templates, styles, scripts, fonts, and images stay out
+# of the public repository; the backend runs without them.
+content/
+
 # Go build output and coverage files.
 /bin/
 /dist/
