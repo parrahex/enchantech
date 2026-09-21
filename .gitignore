@@ -1,0 +1,24 @@
+# Local environment and secrets.
+.env
+.env.*
+*.pem
+*.key
+
+# Go build output and coverage files.
+/bin/
+/dist/
+*.test
+coverage.out
+
+# Local runtime files and logs.
+*.log
+tmp/
+
+# Local overrides.
+compose.override.yaml
+
+# Dependency and editor-specific files.
+vendor/
+.idea/
+.vscode/
+.DS_Store
