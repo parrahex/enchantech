@@ -15,7 +15,7 @@ and this route will render the page instead.
 
 // registerRoutes keeps all HTTP route registration in one place.
 func registerRoutes(router *gin.Engine, forecast *weather, hasPage bool) {
-	router.GET("/", func(context *gin.Context) {
+	router.Match([]string{http.MethodGet, http.MethodHead}, "/", func(context *gin.Context) {
 		if !hasPage {
 			context.String(http.StatusOK, placeholderPage)
 
