@@ -28,6 +28,10 @@ night flag for the configured coordinates, not from the clock. The last three
 are clock hours, because the forecast reports whether the sun is up but not what
 part of the day it is.
 
+The season follows the calendar at the configured location: winter from
+December, spring from March, summer from June, and autumn from October. South of
+the equator the seasons are shifted by six months.
+
 Cloud cover sets how many clouds are drawn, and wind speed sets how fast they
 drift. The sun or moon is hidden when cover reaches 85%, or in fog (codes 45 and
 48), which also lays flat bands across the sky.
@@ -86,6 +90,7 @@ content/
 | `.Condition` | string | short weather description, such as `light rain`; empty when unknown |
 | `.Temperature` | int | air temperature at 2 m, rounded, °C |
 | `.Moon` | float | moon phase, 0 new → 0.5 full → 1 new, mirrored south of the equator |
+| `.Season` | string | `winter`, `spring`, `summer`, or `autumn` |
 
 Everything under `assets/` is served at `/assets/`. A scene-aware stylesheet can
 key off `:root[data-scene='rain']` and friends; a canvas script is optional, and

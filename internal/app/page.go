@@ -13,6 +13,7 @@ type pageData struct {
 	Condition   string
 	Temperature int
 	Moon        float64
+	Season      string
 }
 
 func newPageData(content profile, current conditions, now moment) pageData {
@@ -27,5 +28,6 @@ func newPageData(content profile, current conditions, now moment) pageData {
 		Condition:   conditionFor(current),
 		Temperature: int(math.Round(current.Temperature)),
 		Moon:        now.moon,
+		Season:      now.season,
 	}
 }

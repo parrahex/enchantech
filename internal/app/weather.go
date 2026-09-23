@@ -110,16 +110,18 @@ func (service *weather) reading() conditions {
 }
 
 type moment struct {
-	hour int
-	moon float64
+	hour   int
+	moon   float64
+	season string
 }
 
 func (service *weather) moment() moment {
 	now := time.Now().In(service.location)
 
 	return moment{
-		hour: now.Hour(),
-		moon: moonPhase(now, service.place.Latitude),
+		hour:   now.Hour(),
+		moon:   moonPhase(now, service.place.Latitude),
+		season: seasonFor(now, service.place.Latitude),
 	}
 }
 
