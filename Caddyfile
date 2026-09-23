@@ -1,3 +1,7 @@
 enchan.tech {
 	reverse_proxy app:8080
 }
+
+www.enchan.tech {
+	redir https://enchan.tech{uri} permanent
+}
