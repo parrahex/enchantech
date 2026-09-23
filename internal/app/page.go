@@ -12,12 +12,13 @@ type pageData struct {
 	Wind        float64
 	Condition   string
 	Temperature int
+	Moon        float64
 }
 
-func newPageData(content profile, current conditions, hour int) pageData {
+func newPageData(content profile, current conditions, now moment) pageData {
 	return pageData{
 		Profile:     content,
-		Scene:       sceneFor(current, hour),
+		Scene:       sceneFor(current, now.hour),
 		Known:       current.Known,
 		Night:       current.Known && current.Night,
 		Fog:         current.Known && fogCodes[current.Code],
@@ -25,5 +26,6 @@ func newPageData(content profile, current conditions, hour int) pageData {
 		Wind:        current.Wind,
 		Condition:   conditionFor(current),
 		Temperature: int(math.Round(current.Temperature)),
+		Moon:        now.moon,
 	}
 }

@@ -22,7 +22,7 @@ func registerRoutes(router *gin.Engine, forecast *weather, hasPage bool) {
 			return
 		}
 
-		data := newPageData(siteProfile, forecast.reading(), forecast.hour())
+		data := newPageData(siteProfile, forecast.reading(), forecast.moment())
 
 		context.HTML(http.StatusOK, "home.html", data)
 	})

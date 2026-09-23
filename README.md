@@ -84,6 +84,7 @@ content/
 | `.Wind` | float | wind speed at 10 m |
 | `.Condition` | string | short weather description, such as `light rain`; empty when unknown |
 | `.Temperature` | int | air temperature at 2 m, rounded, °C |
+| `.Moon` | float | moon phase, 0 new → 0.5 full → 1 new, mirrored south of the equator |
 
 Everything under `assets/` is served at `/assets/`. A scene-aware stylesheet can
 key off `:root[data-scene='rain']` and friends; a canvas script is optional, and
