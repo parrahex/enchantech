@@ -1,10 +1,13 @@
-FROM golang:1.26.6-trixie AS build
+FROM --platform=$BUILDPLATFORM golang:1.26.6-trixie AS build
+
+ARG TARGETARCH
 
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN mkdir -p content && go build -o enchantech ./cmd/api
+RUN mkdir -p content \
+    && CGO_ENABLED=0 GOARCH=$TARGETARCH go build -o enchantech ./cmd/api
 
 FROM debian:trixie-slim
 
