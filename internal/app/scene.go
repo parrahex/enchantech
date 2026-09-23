@@ -1,6 +1,9 @@
 package app
 
-const defaultScene = "day"
+const (
+	defaultScene  = "day"
+	overcastCover = 85
+)
 
 var snowCodes = map[int]bool{
 	71: true, 73: true, 75: true, 77: true, 85: true, 86: true,
@@ -72,6 +75,8 @@ func sceneFor(current conditions, hour int) string {
 	}
 
 	switch {
+	case current.Code == 3 || current.Cover >= overcastCover:
+		return "overcast"
 	case hour < 12:
 		return "morning"
 	case hour < 18:

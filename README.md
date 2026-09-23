@@ -18,12 +18,13 @@ time of day is used only when nothing is falling.
 | Snow — 71, 73, 75, 77, 85, 86 | `snow` |
 | Drizzle, rain, or showers — 51-67, 80-82 | `rain` |
 | Dark outside | `night` |
+| Light, overcast — WMO code 3, or cloud cover of 85% or more | `overcast` |
 | Light, before 12:00 local time | `morning` |
 | Light, 12:00 to 17:59 | `day` |
 | Light, 18:00 onward | `evening` |
 
 Night follows real sunrise and sunset: it comes from the forecast's own day and
-night flag for the configured coordinates, not from the clock. The other three
+night flag for the configured coordinates, not from the clock. The last three
 are clock hours, because the forecast reports whether the sun is up but not what
 part of the day it is.
 
