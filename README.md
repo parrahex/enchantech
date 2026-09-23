@@ -78,9 +78,12 @@ content/
 | `.Profile.Links` | list | each with `.ID`, `.Label`, `.URL` |
 | `.Scene` | string | one of the scenes above, lower case |
 | `.Known` | bool | false when no forecast was available |
+| `.Night` | bool | the sun is down at the configured location |
 | `.Fog` | bool | fog is present |
 | `.Cover` | int | cloud cover, 0–100 |
 | `.Wind` | float | wind speed at 10 m |
+| `.Condition` | string | short weather description, such as `light rain`; empty when unknown |
+| `.Temperature` | int | air temperature at 2 m, rounded, °C |
 
 Everything under `assets/` is served at `/assets/`. A scene-aware stylesheet can
 key off `:root[data-scene='rain']` and friends; a canvas script is optional, and

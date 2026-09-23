@@ -23,11 +23,12 @@ const (
 )
 
 type conditions struct {
-	Known bool
-	Night bool
-	Code  int
-	Cover int
-	Wind  float64
+	Known       bool
+	Night       bool
+	Code        int
+	Cover       int
+	Wind        float64
+	Temperature float64
 }
 
 var unknownConditions = conditions{Cover: 50, Wind: 3}
@@ -140,7 +141,7 @@ func (service *weather) read(ctx context.Context) (conditions, error) {
 		"latitude":      {strconv.FormatFloat(service.place.Latitude, 'f', -1, 64)},
 		"longitude":     {strconv.FormatFloat(service.place.Longitude, 'f', -1, 64)},
 		"timezone":      {service.place.TimeZone},
-		"current":       {"is_day,weather_code,cloud_cover,wind_speed_10m"},
+		"current":       {"is_day,weather_code,cloud_cover,wind_speed_10m,temperature_2m"},
 		"forecast_days": {"1"},
 	}
 
@@ -166,11 +167,12 @@ func (service *weather) read(ctx context.Context) (conditions, error) {
 
 	var payload struct {
 		Current struct {
-			Time  string  `json:"time"`
-			IsDay int     `json:"is_day"`
-			Code  int     `json:"weather_code"`
-			Cover int     `json:"cloud_cover"`
-			Wind  float64 `json:"wind_speed_10m"`
+			Time        string  `json:"time"`
+			IsDay       int     `json:"is_day"`
+			Code        int     `json:"weather_code"`
+			Cover       int     `json:"cloud_cover"`
+			Wind        float64 `json:"wind_speed_10m"`
+			Temperature float64 `json:"temperature_2m"`
 		} `json:"current"`
 	}
 
@@ -183,10 +185,11 @@ func (service *weather) read(ctx context.Context) (conditions, error) {
 	}
 
 	return conditions{
-		Known: true,
-		Night: payload.Current.IsDay == 0,
-		Code:  payload.Current.Code,
-		Cover: payload.Current.Cover,
-		Wind:  payload.Current.Wind,
+		Known:       true,
+		Night:       payload.Current.IsDay == 0,
+		Code:        payload.Current.Code,
+		Cover:       payload.Current.Cover,
+		Wind:        payload.Current.Wind,
+		Temperature: payload.Current.Temperature,
 	}, nil
 }
