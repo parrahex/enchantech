@@ -113,15 +113,20 @@ type moment struct {
 	hour   int
 	moon   float64
 	season string
+	offset int
+	local  bool
 }
 
 func (service *weather) moment() moment {
 	now := time.Now().In(service.location)
+	_, offset := now.Zone()
 
 	return moment{
 		hour:   now.Hour(),
 		moon:   moonPhase(now, service.place.Latitude),
 		season: seasonFor(now, service.place.Latitude),
+		offset: offset / 60,
+		local:  service.place.Configured(),
 	}
 }
 

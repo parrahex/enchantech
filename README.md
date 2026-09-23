@@ -91,6 +91,8 @@ content/
 | `.Temperature` | int | air temperature at 2 m, rounded, °C |
 | `.Moon` | float | moon phase, 0 new → 0.5 full → 1 new, mirrored south of the equator |
 | `.Season` | string | `winter`, `spring`, `summer`, or `autumn` |
+| `.Clock` | bool | a location is configured, so its local time is known |
+| `.Offset` | int | the location's current offset from UTC, in minutes |
 
 Everything under `assets/` is served at `/assets/`. A scene-aware stylesheet can
 key off `:root[data-scene='rain']` and friends; a canvas script is optional, and

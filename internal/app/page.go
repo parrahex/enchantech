@@ -14,6 +14,8 @@ type pageData struct {
 	Temperature int
 	Moon        float64
 	Season      string
+	Clock       bool
+	Offset      int
 }
 
 func newPageData(content profile, current conditions, now moment) pageData {
@@ -29,5 +31,7 @@ func newPageData(content profile, current conditions, now moment) pageData {
 		Temperature: int(math.Round(current.Temperature)),
 		Moon:        now.moon,
 		Season:      now.season,
+		Clock:       now.local,
+		Offset:      now.offset,
 	}
 }
